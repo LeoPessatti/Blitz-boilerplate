@@ -35,7 +35,8 @@ class Bootstrap {
             'gump'
         ],
         'vendor_helpers' => [
-            'Url'
+            'Url',
+            'Logs'
         ],
         'app_libs' => [],
         'app_helpers' => [],

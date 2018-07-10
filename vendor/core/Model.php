@@ -5,6 +5,7 @@
  */
 
 namespace blitz\vendor\core;
+use blitz\vendor\core\helpers\Logs as log;
 
 /**
  * Base Model
@@ -156,5 +157,10 @@ abstract class Model {
     protected function mkdirsPublic($src, $mode = 0760) {
         $this->mkdirs(\blitz\vendor\Bootstrap::$settings['storage_src'] . '/public/' . $src, $mode);
     }
+
+    public function log($content, $src) {
+        log::log($content, $src);
+    }
+
 
 }

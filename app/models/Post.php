@@ -29,13 +29,5 @@ class Post extends \blitz\vendor\core\ModelDatabase{
             ->fetchInto($this);
     }
 
-    public function list() {
-        return $this->getConn()
-            ->select('id, title')
-            ->from('post')
-            ->execute()
-            ->fetchCollection(new Post());
-
-    }
 
 }

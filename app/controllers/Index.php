@@ -12,6 +12,7 @@ use \blitz\app\models\Post as Post;
 class Index extends \blitz\vendor\core\Controller {
 
     public function actionIndex() {
+        $this->log('Hello word :)');
         $this->outputPage('index::default');
     }
 

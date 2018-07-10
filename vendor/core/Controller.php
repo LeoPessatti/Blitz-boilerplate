@@ -4,6 +4,7 @@
  * Copyright (C) 2016 Fernando Batels <luisfbatels@gmail.com>
  */
 namespace blitz\vendor\core;
+use blitz\vendor\core\helpers\Logs as log;
 
 /**
  * Base Controller
@@ -286,5 +287,10 @@ abstract class Controller {
     public function actionIndex() {
         self::output('Hello word :)');
     }
+
+    public function log($content, $src) {
+        log::log($content, $src);
+    }
+
 
 }
