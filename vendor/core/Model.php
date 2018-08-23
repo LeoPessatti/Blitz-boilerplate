@@ -158,8 +158,8 @@ abstract class Model {
         $this->mkdirs(\blitz\vendor\Bootstrap::$settings['storage_src'] . '/public/' . $src, $mode);
     }
 
-    public function log($content, $src) {
-        log::log($content, $src);
+    public function log($content, $src = null) {
+        $src == null?log::log($content):log::log($content, $src);
     }
 
 

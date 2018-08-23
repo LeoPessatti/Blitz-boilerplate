@@ -288,8 +288,8 @@ abstract class Controller {
         self::output('Hello word :)');
     }
 
-    public function log($content, $src) {
-        log::log($content, $src);
+    public function log($content, $src = null) {
+        $src == null?log::log($content):log::log($content, $src);
     }
 
 

@@ -21,7 +21,7 @@ class Logs extends \blitz\vendor\core\Helpers{
      */
 
 
-    public function log(String $content, $src = "log.txt"){
+    public function log(String $content, $src = 'log.txt'){
         $ip = $_SERVER['REMOTE_ADDR']=='::1'?'localhost':$_SERVER['REMOTE_ADDR'];
         $value = self::data() . ' - ' . $ip . ' - ' . $content;
         file_put_contents(\blitz\vendor\Bootstrap::$settings['storage_src'] . '/private/' . $src, $value . PHP_EOL, FILE_APPEND);

@@ -6,13 +6,12 @@ namespace blitz\app\controllers;
 \blitz\vendor\core\Model::import('Post');
 use \blitz\app\models\Post as Post;
 
-/**
- * @author Fernando Batels <luisfbatels@gmail.com>
- */
 class Index extends \blitz\vendor\core\Controller {
 
     public function actionIndex() {
-        $this->log('Hello word :)');
+        $this->log('Mais um acesso bem sucedido ʘ‿ʘ','views.txt');
+//        $post = new Post();
+//        $post->log("Novo post feito :D", "posts.csv");
         $this->outputPage('index::default');
     }
 
