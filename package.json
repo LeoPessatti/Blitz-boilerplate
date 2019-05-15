@@ -1,0 +1,47 @@
+{
+	"name": "blitz-boilerplate",
+	"version": "1.0.0",
+	"description": "A Small and flexible boilerplate made for small, fast and customizable projects.",
+	"main": "index.php",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LeonardoPessatti/Blitz-boilerplate.git"
+	},
+	"keywords": [
+		"php",
+		"frameowrk",
+		"boilerplate"
+	],
+	"author": "Leonardo Pessatti",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/LeonardoPessatti/Blitz-boilerplate/issues"
+	},
+	"homepage": "https://github.com/LeonardoPessatti/Blitz-boilerplate#readme",
+	"dependencies": {
+		"autoprefixer": "^9.5.1",
+		"browser-sync": "^2.26.5",
+		"child_process": "^1.0.2",
+		"cssnano": "^4.1.10",
+		"del": "^4.1.1",
+		"es6-promise": "^4.2.6",
+		"gulp": "3.9.1",
+		"gulp-autoprefixer": "^6.1.0",
+		"gulp-clean-css": "^4.2.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-eslint": "^5.0.0",
+		"gulp-imagemin": "^5.0.3",
+		"gulp-newer": "^1.4.0",
+		"gulp-notify": "^3.2.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-postcss": "^8.0.0",
+		"gulp-rename": "^1.4.0",
+		"gulp-sass": "^4.0.2",
+		"gulp-uglify": "^3.0.2",
+		"webpack": "^4.31.0",
+		"webpack-stream": "^5.2.1"
+	}
+}

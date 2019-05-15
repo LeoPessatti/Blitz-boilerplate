@@ -1,8 +1,15 @@
+
 .directory
 src/.directory
 *.swp
 *.swo
 tags
+
+# node_modules
+node_modules/
+
+# VS Code files
+\.vscode/
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -65,3 +72,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 \.idea/
+
+
