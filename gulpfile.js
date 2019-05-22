@@ -1,121 +1,105 @@
-require('es6-promise').polyfill();
-var gulp = require('gulp');
-var cleanCss = require('gulp-clean-css');
-var concatCss = require('gulp-concat');
-var notify = require('gulp-notify');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var rename = require('gulp-rename');
-var concatJs = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var browserSync = require('browser-sync');
+"use strict";
 
-// forma os numeros
-function pad(num) {
-	var s = num + '';
-	return (s.length <= 1) ? '0' + s : s;
+// Carregar os plugins
+const autoprefixer = require("autoprefixer");
+const cp = require("child_process");
+const cssnano = require("cssnano");
+const eslint = require("gulp-eslint");
+const gulp = require("gulp");
+const imagemin = require("gulp-imagemin");
+const newer = require("gulp-newer");
+const postcss = require("gulp-postcss");
+const sass = require("gulp-sass");
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+
+// Otimizar imagens
+function images() {
+	return gulp
+		.src("app/views/assets/img/**/*")
+		.pipe(newer("app/views/assets/img"))
+		.pipe(
+			imagemin([
+				imagemin.gifsicle({
+					interlaced: true
+				}),
+				imagemin.jpegtran({
+					progressive: true
+				}),
+				imagemin.optipng({
+					optimizationLevel: 5
+				}),
+				imagemin.svgo({
+					plugins: [{
+						removeViewBox: false,
+						collapseGroups: true
+					}]
+				})
+			])
+		)
+		.pipe(gulp.dest("app/views/assets/img"));
 }
 
-// processa o scss
-gulp.task('sass', function () {
-	return gulp.src('app/app/views/assets/css/scss/style.scss')
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('app/views/assets/css/'));
-});
-
-// concatena os css
-gulp.task('concatcss', function () {
-	return gulp.src(['app/views/assets/css/default.css', 'app/views/assets/css/libs/*.css', 'app/views/assets/css/estilo.css'])
-		.pipe(concatCss('style.css', {
-			inlineImports: false,
-			rebaseUrls: false
+// Compilar o SASS em CSS, concatenar em um único arquivo e minificar
+function css() {
+	return gulp
+		.src("app/views/assets/css/scss/**/*.scss")
+		.pipe(concat('style.min.css'))
+		.pipe(sass({
+			outputStyle: "expanded"
 		}))
-		.pipe(gulp.dest('./app/views/assets/css'));
-});
+		.pipe(postcss([autoprefixer(), cssnano()]))
+		.pipe(gulp.dest("app/views/assets/css/"));
+}
 
-// minifica o css e salva na raiz
-gulp.task('styles', function () {
-	var date = new Date();
-
-	return gulp.src('app/views/assets/css/style.css')
-		.pipe(cleanCss({
-			compatibility: ''
+// Lint dos scripts
+function scriptsLint() {
+	return gulp
+		.src(["app/views/assets/js/**/*", "./gulpfile.js"])
+		.pipe(eslint({
+			configFile: 'eslint.json'
 		}))
-		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-		.pipe(rename('style.css'))
-		.pipe(gulp.dest('./'))
-		.pipe(notify({
-			message: "Styles updated! @ <%= options.date %>",
-			templateOptions: {
-				date: pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds())
-			}
-		}))
-		.pipe(browserSync.stream({
-			once: true
-		}));
-});
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
+}
 
-// concatena o js
-gulp.task('concatjs', function () {
-	return gulp.src(['app/views/assets/js/libs/dependencies/*.js', 'app/views/assets/js/libs/*.js', 'app/views/assets/js/funcoes/**/*.js'])
-		.pipe(concatJs('funcoes.js'))
-		.pipe(gulp.dest('app/views/assets/js/'));
-});
+// Transpilar, concatenar e minificar os scripts
+function scripts() {
+	return (
+		gulp
+		.src(["app/views/assets/js/functions/*"])
+		.pipe(concat('functions.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest("app/views/assets/js/"))
 
-// minifica o js e salva
-gulp.task('uglify', function () {
-	var date = new Date();
+	);
+}
 
-	return gulp.src('app/views/assets/js/funcoes.js')
-		.pipe(uglify({
-			mangle: false
-		}))
-		.pipe(rename('funcoes.min.js'))
-		.pipe(gulp.dest('./app/views/assets/js'))
-		.pipe(notify({
-			message: "Scripts updated! @ <%= options.date %>",
-			templateOptions: {
-				date: pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds())
-			}
-		}))
-		.pipe(browserSync.stream({
-			once: true
-		}));
-});
-
-// assiste os .php e avisa o bsync
-gulp.task('php', function () {
-	gulp.watch("**/*.php").on('change', function () {
-		var date = new Date();
-
-		notify({
-			message: "PHP updated! @ <%= options.date %>",
-			templateOptions: {
-				date: pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds())
-			}
-		});
-		browserSync.reload();
+// Jekyll
+function jekyll() {
+	return cp.spawn("bundle", ["exec", "jekyll", "build"], {
+		stdio: "inherit"
 	});
-});
+}
 
-// assiste e executa as tarefas
-gulp.task('watch', ['build'], function () {
-	gulp.watch(['app/views/assets/css/scss/**/*.scss'], ['sass']);
-	gulp.watch(['app/views/assets/css/estilo.css', 'app/views/assets/css/libs/**/*.css'], ['concatcss']);
-	gulp.watch(['app/views/assets/css/style.css'], ['styles']);
-	gulp.watch(['app/views/assets/js/libs/**/*.js', 'app/views/assets/js/funcoes/*.js'], ['concatjs']);
-	gulp.watch('app/views/assets/js/funcoes.js', ['uglify']);
-});
 
-// bsync
-gulp.task('serve', ['php', 'watch'], function () {
-	browserSync.init({
-		proxy: "http://192.168.0.2/" // url do seu projeto
-	});
-});
+// Esperar por alterações
+function watchFiles() {
+	gulp.watch("app/views/assets/css/scss/**/*.scss", css);
+	gulp.watch("app/views/assets/img/**/*", images);
+	gulp.watch("app/views/assets/js/functions/*.js", gulp.series(scripts, scriptsLint));
+}
 
-// tarefa padrao
-gulp.task('default', ['watch']);
+// Define tarefas mais complexas
+const js = gulp.series(scripts, scriptsLint);
+const build = gulp.series(gulp.parallel(css, images, jekyll, js));
+const watch = gulp.parallel(watchFiles);
 
-// gera todos os arquivos necesários
-gulp.task('build', ['sass', 'concatcss', 'styles', 'concatjs', 'uglify']);
+// exports
+exports.images = images;
+exports.css = css;
+exports.js = js;
+exports.jekyll = jekyll;
+exports.build = build;
+exports.watch = watch;
+exports.default = build;

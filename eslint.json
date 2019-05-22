@@ -1,0 +1,11 @@
+{
+	"parser": "babel-eslint",
+	"rules": {
+
+	},
+	"env": {
+		"browser": true,
+		"jquery": true,
+		"es6": true
+	}
+}
