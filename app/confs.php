@@ -5,10 +5,10 @@
  */
 
 \blitz\vendor\Bootstrap::$settings['app'] = [
-    'name' => 'Blitz Framework',
-    'author' => 'Fernando Batels',
-    'author_email' => 'luisfbatels@gmail.com',
-    'url' => 'http://localhost/blitz-framework'
+	'name' => 'Blitz Framework',
+	'author' => 'Fernando Batels',
+	'author_email' => 'luisfbatels@gmail.com',
+	'url' => 'http://localhost/blitz-framework'
 ];
 
 
@@ -21,9 +21,9 @@
 \blitz\vendor\Bootstrap::$settings['db']['pass'] = '12345678';
 //http://php.net/manual/pt_BR/pdo.setattribute.php
 \blitz\vendor\Bootstrap::$settings['db']['attributes'] = [
-    //PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    //PDO::ATTR_CASE => PDO::CASE_LOWER,
-    //....
+	//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+	//PDO::ATTR_CASE => PDO::CASE_LOWER,
+	//....
 ];
 
 /**
@@ -35,13 +35,13 @@
  * Every library needs a infos.php file with your settings
  */
 \blitz\vendor\Bootstrap::$settings['app_libs'] = [
-        //'api-my-server-folder'
+	//'api-my-server-folder'
 ];
 /**
  * Every helpers needs a static methods and extends from Helpers class
  */
 \blitz\vendor\Bootstrap::$settings['app_helpers'] = [
-        //'MyAdmin'
+	//'MyAdmin'
 ];
 
 
@@ -49,7 +49,5 @@
 setlocale(LC_MONETARY, "pt_BR");
 date_default_timezone_set('America/Sao_Paulo');
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-//error_reporting(E_ERROR | E_WARNING | E_PARSE);
-error_reporting(0);
+error_reporting(E_ALL);
+// error_reporting(0);
