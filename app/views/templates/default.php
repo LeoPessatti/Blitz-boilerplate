@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="{url}/app/views/assets/style.min.css" />
 </head>
+<script src="{url}/app/views/assets/js/scripts.js"></script>
 
 <body>
 
@@ -17,6 +18,7 @@
 		<li><a href="{url}/admin/posts">Go to admin</a></li>
 	</ul>
 	<?= $this->section('content') ?>
+	<script src="{url}/app/views/assets/js/scripts.js"></script>
 </body>
 
 </html>
