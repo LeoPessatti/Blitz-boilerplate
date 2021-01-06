@@ -5,12 +5,11 @@
  */
 
 \blitz\vendor\Bootstrap::$settings['app'] = [
-	'name' => 'Blitz Framework',
-	'author' => 'Fernando Batels',
-	'author_email' => 'luisfbatels@gmail.com',
-	'url' => 'http://localhost/blitz-framework'
+	'name' => 'Blitz Boilerplate',
+	'author' => 'Fernando Batels & Leonardo Pessatti',
+	'author_email' => 'lpessatti@gmail.com',
+	'url' => 'http://localhost/blitz-boilerplate'
 ];
-
 
 \blitz\vendor\Bootstrap::$settings['use_http_encoding_gzip'] = true;
 \blitz\vendor\Bootstrap::$settings['use_http_output_minify'] = true;
@@ -44,10 +43,12 @@
 	//'MyAdmin'
 ];
 
-
-
-setlocale(LC_MONETARY, "pt_BR");
+setlocale(LC_MONETARY, 'pt_BR');
 date_default_timezone_set('America/Sao_Paulo');
 
+ini_set('xdebug.var_display_max_children', '-1');
+ini_set('xdebug.var_display_max_data', '-1');
+ini_set('xdebug.var_display_max_depth', '-1');
+
 error_reporting(E_ALL);
-// error_reporting(0);
+error_reporting(0);

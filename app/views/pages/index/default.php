@@ -1,6 +1,9 @@
-<?php $this->layout('default') ?>
+<?php $this->layout('default');?>
 
-
-<h1>Blitz framework</h1>
-
-<a href="https://github.com/FernandoBatels/blitz-framework">Github</a>
+<div class="row">
+	<div class="col-md-4 offset-md-4 text-center">
+		<div class="jumbotron">
+			<h2>Bem-Vindo ao <?= \blitz\vendor\Bootstrap::$settings['app']['name'] ?>!</h2>
+		</div>
+	</div>
+</div>
