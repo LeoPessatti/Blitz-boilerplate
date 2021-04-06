@@ -8,7 +8,7 @@
 	'name' => 'Blitz Boilerplate',
 	'author' => 'Fernando Batels & Leonardo Pessatti',
 	'author_email' => 'lpessatti@gmail.com',
-	'url' => 'http://localhost/blitz-boilerplate'
+	'url' => 'http://localhost/Blitz-boilerplate'
 ];
 
 \blitz\vendor\Bootstrap::$settings['use_http_encoding_gzip'] = true;
@@ -40,7 +40,8 @@
  * Every helpers needs a static methods and extends from Helpers class
  */
 \blitz\vendor\Bootstrap::$settings['app_helpers'] = [
-	//'MyAdmin'
+	'Alerts',
+	'Format'
 ];
 
 setlocale(LC_MONETARY, 'pt_BR');
@@ -49,6 +50,9 @@ date_default_timezone_set('America/Sao_Paulo');
 ini_set('xdebug.var_display_max_children', '-1');
 ini_set('xdebug.var_display_max_data', '-1');
 ini_set('xdebug.var_display_max_depth', '-1');
+ini_set('display_errors', 1);
 
-error_reporting(E_ALL);
+// error_reporting(E_ALL);
+// error_reporting(E_ALL ^ E_NOTICE);
+// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 error_reporting(0);
